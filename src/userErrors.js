@@ -18,9 +18,23 @@ class CountOptionsError extends ValidationError {
         if (property) {
             super(`${property} property occurs more than once`);
         } else {
-            super ('-c property must be defined')
+            super('-c property must be defined')
         }
         this.name = "PropertyRequiredError";
+    }
+}
+
+class FileAvailableError extends ValidationError {
+    constructor(property) {
+        super(`${property} file not found or not available`);
+        this.name = "FileError";
+    }
+}
+
+class ConfigValidationError extends ValidationError {
+    constructor() {
+        super('Config string is not valid');
+        this.name = "ConfigError";
     }
 }
 
@@ -37,5 +51,7 @@ const errorHandler = (error) => {
 module.exports = {
     UpperCaseError,
     CountOptionsError,
+    FileAvailableError,
+    ConfigValidationError,
     errorHandler,
 };

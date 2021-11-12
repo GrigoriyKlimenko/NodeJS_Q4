@@ -1,4 +1,4 @@
-const {getConfig} = require('./src/consoleArguments');
+const { getConfig } = require('./src/consoleArguments');
 const { errorHandler } = require('./src/userErrors');
 
 try {
