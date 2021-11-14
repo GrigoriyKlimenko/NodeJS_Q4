@@ -1,7 +1,9 @@
-const { getConfig } = require('./src/consoleArguments');
-const { errorHandler } = require('./src/userErrors');
 const { Transform, pipeline } = require('stream');
 const fs = require('fs');
+
+const { MyReadStream, MyWriteStream } = require('./src/customStreams');
+const { getConfig } = require('./src/consoleArguments');
+const { errorHandler } = require('./src/userErrors');
 const { CipheringFactory } = require('./src/transformation');
 
 const makeTransformStream = (config, tool) => {
@@ -24,10 +26,12 @@ try {
   const cipheringTool = new CipheringFactory();
   const transformStream = makeTransformStream(config['-c'], cipheringTool);
   pipeline(
-    config['-i'] ? fs.createReadStream(config['-i']) : process.stdin,
+    config['-i'] ? new MyReadStream(config['-i'], fs) : process.stdin,    
+    // config['-i'] ? fs.createReadStream(config['-i']) : process.stdin,
     ...transformStream,
-    config['-o'] ? fs.createWriteStream(config['-o'], { flags: 'a' }) : process.stdout,
-    () => { }
+    config['-o'] ? new MyWriteStream(config['-o'], fs) : process.stdout,
+    // config['-o'] ? fs.createWriteStream(config['-o'], { flags: 'a' }) : process.stdout,
+    () => {}
   );
 
 }
