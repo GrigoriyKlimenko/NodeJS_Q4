@@ -45,7 +45,6 @@ class MyReadStream extends Readable {
     
       _construct(callback) {
         this.worker.open(this.filename, 'a', (err, fd) => {
-          console.log(this.flags);
           if (err) {
             callback(err);
           } else {

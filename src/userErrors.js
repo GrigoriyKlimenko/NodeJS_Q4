@@ -18,7 +18,7 @@ class CountOptionsError extends ValidationError {
     if (property) {
       super(`${property} property occurs more than once`);
     } else {
-      super('-c property must be defined')
+      super('-c or --config property must be defined')
     }
     this.name = "PropertyRequiredError";
   }
