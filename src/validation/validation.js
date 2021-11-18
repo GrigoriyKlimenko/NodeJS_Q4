@@ -63,4 +63,5 @@ const isValidOptions = (options) => {
 module.exports = {
   isValidOptionsString,
   isValidOptions,
+  isValidConfig,
 }

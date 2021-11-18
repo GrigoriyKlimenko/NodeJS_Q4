@@ -1,4 +1,4 @@
-const {CipheringFactory} = require('./transformation');
+const { CipheringFactory } = require('./transformation');
 
 test('callback is run', () => {
     let g = new CipheringFactory();
