@@ -42,4 +42,6 @@ const getConfig = () => buildConfig(optionsString);
 
 module.exports = {
   getConfig,
+  prepareOptionsString,
+  buildConfig,
 };

@@ -1,0 +1,3 @@
+test ('gg', () => {
+    expect(['-']).toEqual(['-']);
+})
