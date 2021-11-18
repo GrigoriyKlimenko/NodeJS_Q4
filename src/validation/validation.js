@@ -1,5 +1,5 @@
 const { accessSync, constants } = require('fs');
-const { UpperCaseError, CountOptionsError, FileAvailableError, ConfigValidationError } = require('./userErrors');
+const { UpperCaseError, CountOptionsError, FileAvailableError, ConfigValidationError } = require('../errors/userErrors');
 
 let countOfOptions = {
   '-i': 0,

@@ -1,10 +1,10 @@
 const { Transform, pipeline } = require('stream');
 const fs = require('fs');
 
-const { MyReadStream, MyWriteStream } = require('./src/customStreams');
-const { getConfig } = require('./src/consoleArguments');
-const { errorHandler } = require('./src/userErrors');
-const { CipheringFactory } = require('./src/transformation');
+const { MyReadStream, MyWriteStream } = require('./src/streams/customStreams');
+const { getConfig } = require('./src/arguments/consoleArguments');
+const { errorHandler } = require('./src/errors/userErrors');
+const { CipheringFactory } = require('./src/transformation/transformation');
 
 const makeTransformStream = (config, tool) => {
   const transformStream = config.map((option) => {

@@ -1,5 +1,5 @@
 const process = require('process');
-const { isValidOptionsString, isValidOptions } = require('./validation');
+const { isValidOptionsString, isValidOptions } = require('../validation/validation');
 
 const optionsToCheck = ['-c', '-i', '-o']
 
