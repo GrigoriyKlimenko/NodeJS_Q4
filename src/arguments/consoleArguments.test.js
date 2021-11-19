@@ -1,15 +1,48 @@
-const { getConfig, prepareOptionsString, buildConfig } = require('./consoleArguments');
+const { prepareOptionsString, buildConfig } = require('./consoleArguments');
+const { UpperCaseError } = require('../errors/userErrors');
+
 
 test ('gg', () => {
     expect(prepareOptionsString(['--input', 'some', '--output', 'another', '--config', 'conf']))
     .toEqual(['-i', 'some', '-o', 'another', '-c', 'conf']);
 })
 
+
 test ('gg22', () => {
-    expect(buildConfig(['-i', './input.txt', '-o', './output.txt', '-c', 'A-C1-C1-R0']))
-    .toEqual({
-        '-i': './input.txt',
-        '-o': './output.txt',
-        '-c': ['A', 'C1', 'C1', 'R0']})
+    const wrapper = () => {
+        buildConfig(['-I', './input.txt', '-o', './output.txt', '-c', 'A-C1-C1-R0'])
+    };
+    expect(wrapper)
+    .toThrow(UpperCaseError);
 })
 
+
+testData = [
+    { data: 
+        ['-i', './input.txt', '-o', './output.txt', '-c', 'A-C1-C1-R0'],
+     result: 
+        {
+        '-i': './input.txt',
+        '-o': './output.txt',
+        '-c': ['A', 'C1', 'C1', 'R0']}
+    },
+    { data: 
+        ['-o', './output.txt', '-c', 'A-C1-C1-R0'],
+     result: 
+        {
+        '-o': './output.txt',
+        '-c': ['A', 'C1', 'C1', 'R0']}
+    },
+    { data: 
+        ['-i', './input.txt', '-o', './output.txt', '-c', 'A'],
+     result: 
+        {
+        '-i': './input.txt',
+        '-o': './output.txt',
+        '-c': ['A']}
+    },
+];
+
+testData.forEach( testItem => {
+    expect(buildConfig(testItem.data)).toEqual(testItem.result);
+});

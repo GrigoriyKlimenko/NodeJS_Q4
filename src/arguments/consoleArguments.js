@@ -1,4 +1,4 @@
-const process = require('process');
+
 const { isValidOptionsString, isValidOptions } = require('../validation/validation');
 
 const optionsToCheck = ['-c', '-i', '-o']
@@ -19,8 +19,6 @@ const prepareOptionsString = (string) => {
   return preparedString;
 }
 
-const optionsString = prepareOptionsString(process.argv.slice(2));
-
 const buildConfig = (optionsString) => {
   let optionsObject = {};
 
@@ -30,6 +28,7 @@ const buildConfig = (optionsString) => {
         optionsObject[option] = optionsString[optionsString.indexOf(option) + 1].trim();
       }
     })
+    
   }
   optionsObject['-c'] = optionsObject['-c'].split('-').map((item) => item.trim());
 
@@ -38,10 +37,8 @@ const buildConfig = (optionsString) => {
   }
 }
 
-const getConfig = () => buildConfig(optionsString);
-
 module.exports = {
-  getConfig,
+  buildConfig,
   prepareOptionsString,
   buildConfig,
 };

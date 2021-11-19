@@ -1,16 +1,49 @@
-const { UpperCaseError } = require('../errors/userErrors');
+const { UpperCaseError, CountOptionsError, FileAvailableError, ConfigValidationError } = require('../errors/userErrors');
 const { isValidOptionsString, isValidOptions, isValidConfig } = require('./validation');
 
-test('gg', () => {
-    expect(['-']).toEqual(['-']);
-})
+// isValidOptionsString
+test("Test for catching falling of CONFIG option", () => {
+    const wrapper = () => {
+        isValidOptionsString(['-i', './input.txt'])
+    };
+    expect(wrapper)
+    .toThrow(CountOptionsError);
+});
 
-test('gg', () => {
+test('Test for validation of config string', () => {
     expect(isValidOptionsString(['-i', './input.txt', '-o', './output.txt', '-c', 'A-C1-C1-R0']))
         .toBe(true);
 })
 
-test('gg22', () => {
+test("Test for catching upper case config letters", () => {
+    const wrapper = () => {
+        isValidOptionsString(['-I', './input.txt', '-o', './output.txt', '-c', 'A-C1-C1-R0'])
+    };
+    expect(wrapper)
+    .toThrow(UpperCaseError);
+});
+
+test("Test for catching count of options", () => {
+    const wrapper = () => {
+        isValidOptionsString(['-i', './input.txt', '-i', './input.txt', '-o', './output.txt', '-c', 'A-C1-C1-R0'])
+    };
+    expect(wrapper)
+    .toThrow(CountOptionsError);
+});
+
+//isValidConfig
+test('Test for valid config', () => {
+    expect(isValidConfig(['A', 'C1', 'C1', 'R0']))
+        .toBe(true)
+});
+
+test('Test for not valid config', () => {
+    expect(isValidConfig(['A', 'C1', 'C1', 'R2']))
+        .toBe(false)
+});
+
+//isValidOptions
+test('', () => {
     expect(isValidOptions({
         '-i': './input.txt',
         '-o': './output.txt',
@@ -21,15 +54,38 @@ test('gg22', () => {
             '-c': ['A', 'C1', 'C1', 'R0']})
 });
 
-test('gg22', () => {
-    expect(isValidConfig(['A', 'C1', 'C1', 'R0']))
-        .toBe(true)
+test('', () => {
+        const wrapper = () => {
+            isValidOptions({
+                '-i': './input2.txt',
+                '-o': './output.txt',
+                '-c': ['A', 'C1', 'C1', 'R0']})
+        };
+        expect(wrapper)
+        .toThrow(FileAvailableError);
 });
 
-test("Test description", () => {
-    const t = () => {
-        isValidOptionsString(['-I', './input.txt', '-o', './output.txt', '-c', 'A-C1-C1-R0'])
+test('', () => {
+    const wrapper = () => {
+        isValidOptions({
+            '-i': './input.txt',
+            '-o': './output2.txt',
+            '-c': ['A', 'C1', 'C1', 'R0']})
     };
-    expect(t)
-    .toThrow(UpperCaseError);
+    expect(wrapper)
+    .toThrow(FileAvailableError);
 });
+
+test('', () => {
+    const wrapper = () => {
+        isValidOptions({
+            '-i': './input.txt',
+            '-o': './output.txt',
+            '-c': ['A', 'C1', 'C1', 'R2']})
+    };
+    expect(wrapper)
+    .toThrow(ConfigValidationError);
+});
+
+
+

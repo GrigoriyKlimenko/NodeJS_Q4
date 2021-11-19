@@ -1,10 +1,4 @@
-class ValidationError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "ValidationError";
-    this.isCustom = true;
-  }
-}
+const { ValidationError } = require('./validationError');
 
 class UpperCaseError extends ValidationError {
   constructor(property) {

@@ -1,13 +1,13 @@
 const { accessSync, constants } = require('fs');
 const { UpperCaseError, CountOptionsError, FileAvailableError, ConfigValidationError } = require('../errors/userErrors');
 
-let countOfOptions = {
-  '-i': 0,
-  '-o': 0,
-  '-c': 0,
-}
 
 const isValidOptionsString = (configString) => {
+  let countOfOptions = {
+    '-i': 0,
+    '-o': 0,
+    '-c': 0,
+  }
   configString.forEach(element => {
     if (countOfOptions.hasOwnProperty(element)) {
       countOfOptions[element] += 1;
@@ -64,4 +64,5 @@ module.exports = {
   isValidOptionsString,
   isValidOptions,
   isValidConfig,
+  isAvailableFile
 }
