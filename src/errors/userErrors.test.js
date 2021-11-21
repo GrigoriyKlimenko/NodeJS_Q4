@@ -5,11 +5,6 @@ const { UpperCaseError,
     ConfigValidationError,
     errorHandler } = require('./userErrors');
 
-
-test('gg', () => {
-    expect(['-']).toEqual(['-']);
-})
-
 jest.mock('./validationError');
 beforeEach(() => {
     ValidationError.mockClear();

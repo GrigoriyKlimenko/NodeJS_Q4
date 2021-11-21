@@ -2,13 +2,13 @@ const { prepareOptionsString, buildConfig } = require('./consoleArguments');
 const { UpperCaseError } = require('../errors/userErrors');
 
 
-test ('gg', () => {
+test ('Test of preparing options string', () => {
     expect(prepareOptionsString(['--input', 'some', '--output', 'another', '--config', 'conf']))
     .toEqual(['-i', 'some', '-o', 'another', '-c', 'conf']);
 })
 
 
-test ('gg22', () => {
+test ('Test upper case error', () => {
     const wrapper = () => {
         buildConfig(['-I', './input.txt', '-o', './output.txt', '-c', 'A-C1-C1-R0'])
     };
